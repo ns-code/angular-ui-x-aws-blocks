@@ -1,36 +1,44 @@
-<div class="awsLoginView">
-  Home: <br>
-<div class="awsLoginViewHdr"> 
-  @if (loginUser()) {
-  <p>Welcome Back: {{ loginUser()?.username }}
-    <button type="button" (click)="logout()">SignOut</button>
-  </p>
-  } @else {
-  <span (click)="signInForm()">SignIn</span> &nbsp; | &nbsp; <span (click)="signUpForm()">SignUp</span>
-  }
-</div>
-<hr />
 
-@if (!loginUser()) {
+<div class="homeview">
+  <div class="headerrow">
+    Home <br>
+    <div class="awsLoginViewHdr">
+      @if (loginUser()) {
+      <p>Welcome Back: {{ loginUser()?.username }}
+        <button type="button" (click)="logout()">SignOut</button>
+      </p>
+      } @else {
+      <span (click)="signInForm()">SignIn</span> &nbsp; | &nbsp; <span (click)="signUpForm()">SignUp</span>
+      }
+    </div>
+    <hr />
+  </div>
+  <div class="bodyrowcnr">
+    <div>
+    @if (!loginUser()) {
 
-<form>
-  Username: <input type="text" [formField]="usr.username" />
-  @if (usr.username().invalid() && usr.username().touched()) {
-  <span class="error">
-    @for (error of usr.username().errors(); track error.kind) {
-      <span class="errorMsg">{{ error.message }}</span>
-    }
-  </span>
-  }
-  <br><br>
-  Password: <input type="password" [formField]="usr.password" /><br><br>
-  @if (btnLbl() === 'SignIn') {
-  <button type="button" (click)="login()">{{ btnLbl() }}</button> <span class="errorMsg">{{ errMsg() }}</span>
-    } @else {
-    <button type="button" (click)="register()">{{ btnLbl() }}</button> <span class="errorMsg">{{ errMsg() }}</span>
+    <form>
+      Username: <input type="text" [formField]="usr.username" />
+      @if (usr.username().invalid() && usr.username().touched()) {
+      <span class="error">
+        @for (error of usr.username().errors(); track error.kind) {
+        <span class="errorMsg">{{ error.message }}</span>
         }
-</form>
+      </span>
+      }
+      <br><br>
+      Password: <input type="password" [formField]="usr.password" /><br><br>
+      @if (btnLbl() === 'SignIn') {
+      <button type="button" (click)="login()">{{ btnLbl() }}</button> <span class="errorMsg">{{ errMsg() }}</span>
+      } @else {
+      <button type="button" (click)="register()">{{ btnLbl() }}</button> <span class="errorMsg">{{ errMsg() }}</span>
+      }
+    </form>
 
-}
-
+    }
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>    
+  </div>
 </div>

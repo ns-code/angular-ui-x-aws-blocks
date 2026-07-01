@@ -27,12 +27,12 @@ describe('Home', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render ', () => {
+  test('should render ', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const menucolContainer = compiled.querySelector('.awsLoginView');
+    const menucolContainer = compiled.querySelector('.homeview');
 
     expect(menucolContainer).not.toBeNull(); // ✅ Ensure the element exists
-    expect(menucolContainer?.textContent).toContain('Home:'); // ✅ Safe to assert now
+    expect(menucolContainer?.textContent).toContain('Home'); // ✅ Safe to assert now
   });
 });
 
