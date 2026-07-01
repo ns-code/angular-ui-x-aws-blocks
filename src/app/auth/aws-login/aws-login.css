@@ -1,0 +1,11 @@
+.awsLoginView {
+    margin: 20px;
+}
+
+.awsLoginViewHdr {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 50px;
+  background-color: #f5f5f5;
+}

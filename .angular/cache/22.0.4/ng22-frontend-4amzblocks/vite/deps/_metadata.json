@@ -1,0 +1,55 @@
+{
+  "hash": "05720f13",
+  "configHash": "5434d45f",
+  "lockfileHash": "4d7f0385",
+  "browserHash": "0902cde6",
+  "optimized": {
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "65f80893",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "983fa58e",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "ac4c2b60",
+      "needsInterop": false
+    },
+    "aws-blocks": {
+      "src": "../../../../../../aws-blocks/client.js",
+      "file": "aws-blocks.js",
+      "fileHash": "406e8ebe",
+      "needsInterop": false
+    },
+    "@angular/forms/signals": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/signals.mjs",
+      "file": "@angular_forms_signals.js",
+      "fileHash": "0be906ae",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-6FRJTG6U": {
+      "file": "chunk-6FRJTG6U.js"
+    },
+    "chunk-O7HGJL4K": {
+      "file": "chunk-O7HGJL4K.js"
+    },
+    "chunk-SADVBXQ2": {
+      "file": "chunk-SADVBXQ2.js"
+    },
+    "node_fs-VCKRO2HC": {
+      "file": "node_fs-VCKRO2HC.js"
+    },
+    "chunk-H2SRQSE4": {
+      "file": "chunk-H2SRQSE4.js"
+    }
+  }
+}

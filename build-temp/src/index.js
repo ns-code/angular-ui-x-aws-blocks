@@ -1,0 +1,107 @@
+/**
+ * Frontend — src/index.ts
+ *
+ * Real-time todo app. Uses lit-html for declarative rendering with @event binding.
+ * Imports the typed backend API via `aws-blocks` (auto-generated proxy).
+ */
+import { api, authApi } from 'aws-blocks';
+import { AccountMenuBar, AuthenticatedContent, onAuthChange } from '@aws-blocks/blocks/ui';
+import { html, render } from 'lit-html';
+// ─── Auth ────────────────────────────────────────────────────────────────────
+// Show Account Menu bar that pops open authenticator when Sign In is clicked.
+const menuBarEl = document.getElementById('menu-bar');
+menuBarEl.appendChild(AccountMenuBar(authApi));
+onAuthChange(authApi, user => {
+    document.getElementById('signInMessage').style.display = user == null ? '' : 'none';
+});
+// ─── App (shown when authenticated) ─────────────────────────────────────────
+document.getElementById('app').appendChild(AuthenticatedContent(authApi, (user) => {
+    const container = document.createElement('div');
+    let todos = [];
+    let sortBy;
+    async function load() {
+        todos = await api.listTodos(sortBy);
+        redraw();
+    }
+    function redraw() {
+        render(html `
+        <h2>Todos</h2>
+        <div style="margin-bottom:12px;display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+          <input id="new-todo" type="text" placeholder="What needs to be done?" style="flex:1;min-width:200px" @keydown=${(e) => {
+            if (e.key === 'Enter')
+                addTodo();
+        }} />
+          <select id="new-priority">
+            <option value="1">🔴 High</option>
+            <option value="2" selected>🟡 Medium</option>
+            <option value="3">🟢 Low</option>
+          </select>
+          <button @click=${addTodo}>Add</button>
+        </div>
+        <div style="margin-bottom:12px;font-size:0.85em;color:#666">
+          Sort:
+          <button @click=${() => setSort(undefined)} style="font-weight:${!sortBy ? 'bold' : 'normal'}">Default</button>
+          <button @click=${() => setSort('priority')} style="font-weight:${sortBy === 'priority' ? 'bold' : 'normal'}">Priority</button>
+          <button @click=${() => setSort('title')} style="font-weight:${sortBy === 'title' ? 'bold' : 'normal'}">Title</button>
+        </div>
+        <ul>
+          ${todos.map(t => html `
+            <li style="margin:10px 0;display:flex;align-items:center;gap:8px;${t.completed ? 'text-decoration:line-through;opacity:0.5' : ''}">
+              <input type="checkbox" .checked=${t.completed} @change=${() => toggle(t.todoId)} />
+              <span style="flex:1">${t.title}</span>
+              <select .value=${String(t.priority)} @change=${(e) => setPriority(t.todoId, parseInt(e.target.value))}>
+                <option value="1">🔴 High</option>
+                <option value="2">🟡 Medium</option>
+                <option value="3">🟢 Low</option>
+              </select>
+              <button @click=${() => remove(t.todoId)}>×</button>
+            </li>
+          `)}
+        </ul>
+        <p style="color:#888;font-size:0.85em">${todos.filter(t => !t.completed).length} remaining</p>
+      `, container);
+    }
+    async function addTodo() {
+        const input = container.querySelector('#new-todo');
+        const select = container.querySelector('#new-priority');
+        const title = input.value.trim();
+        if (!title)
+            return;
+        await api.createTodo(title, parseInt(select.value));
+        input.value = '';
+        await load();
+    }
+    function setSort(s) {
+        sortBy = s;
+        load();
+    }
+    async function toggle(todoId) {
+        try {
+            await api.toggleTodo(todoId);
+        }
+        catch { /* conflict — just reload */ }
+        await load();
+    }
+    async function setPriority(todoId, priority) {
+        try {
+            await api.updatePriority(todoId, priority);
+        }
+        catch { /* conflict */ }
+        await load();
+    }
+    async function remove(todoId) {
+        await api.deleteTodo(todoId);
+        await load();
+    }
+    // Realtime: listen for changes from other tabs/users
+    (async () => {
+        try {
+            const channel = await api.subscribeTodos();
+            const sub = channel.subscribe(() => load());
+            await sub.established;
+        }
+        catch { /* realtime not available in local dev */ }
+    })();
+    load();
+    return container;
+}));
