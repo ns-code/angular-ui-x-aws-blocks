@@ -23,9 +23,12 @@
     "deploy": "tsx aws-blocks/scripts/deploy.ts",
     "destroy": "tsx aws-blocks/scripts/destroy.ts",
     "test:e2e": "tsx -C browser test/e2e.test.ts",
-    "vendorize": "blocks-vendorize"
+    "vendorize": "blocks-vendorize",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@analogjs/vite-plugin-angular": "^2.6.2",
     "@angular/common": "^22.0.0",
     "@angular/compiler": "^22.0.0",
     "@angular/core": "^22.0.0",
@@ -36,6 +39,7 @@
     "lit-html": "^3.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "vite-tsconfig-paths": "^6.1.1",
     "zod": "^4.3.0"
   },
   "devDependencies": {
@@ -43,6 +47,7 @@
     "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^22.0.0",
     "@types/node": "^20.19.43",
+    "@vitest/ui": "^4.1.9",
     "aws-cdk-lib": "^2.257.0",
     "constructs": "^10.6.0",
     "esbuild": "^0.27.1",

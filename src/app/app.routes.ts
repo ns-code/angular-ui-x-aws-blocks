@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AwsLogin } from './auth/aws-login/aws-login';
+import { Home } from './home/home';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'signIn', pathMatch: 'full'},
-    { path: 'signIn', component: AwsLogin },
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
+    { path: 'home', component: Home },
 ];

@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "outDir": "build-temp",
-          "types": ["node"]
+          "types": ["node", "vitest"]
   },
   "include": [
     "src/**/*",

@@ -1,15 +1,15 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { form, FormField, required } from "@angular/forms/signals"
 import { AuthUser } from "@aws-blocks/blocks";
-import { AwsBlocksClient } from "../../service/aws-blocks-client";
+import { AwsBlocksClient } from "../service/aws-blocks-client";
 
 @Component({
-  selector: "app-aws-login",
+  selector: "app-home",
   imports: [FormField],
-  templateUrl: "./aws-login.html",
-  styleUrl: "./aws-login.css",
+  templateUrl: "./home.html",
+  styleUrl: "./home.css",
 })
-export class AwsLogin implements OnInit {
+export class Home implements OnInit {
     awsSvcClient = inject(AwsBlocksClient);
     loginUser = signal<AuthUser | undefined | null>(null);
     errMsg = signal<string>('');
