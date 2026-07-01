@@ -13,3 +13,9 @@ This project demos Angular frontend accessing [AWS Blocks](https://aws.amazon.co
 npm install
 npm run dev
 ```
+
+## Testing
+
+```
+npm run test:ui
+```

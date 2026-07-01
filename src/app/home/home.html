@@ -1,6 +1,6 @@
 <div class="awsLoginView">
-
-<div class="awsLoginViewHdr" style="display: flex; justify-content: left; align-items: right;">
+  Home: <br>
+<div class="awsLoginViewHdr"> 
   @if (loginUser()) {
   <p>Welcome Back: {{ loginUser()?.username }}
     <button type="button" (click)="logout()">SignOut</button>

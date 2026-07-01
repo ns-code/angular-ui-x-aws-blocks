@@ -14,10 +14,6 @@ describe('Home', () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [provideRouter([]), provideHttpClient(),
-      // provideLibraryConfig({
-      //   authEndpoint: '/users/authenticate',
-      //   initialPage: '/'
-      // })
       ]
     })
       .compileComponents();
@@ -36,7 +32,7 @@ describe('Home', () => {
     const menucolContainer = compiled.querySelector('.awsLoginView');
 
     expect(menucolContainer).not.toBeNull(); // ✅ Ensure the element exists
-    expect(menucolContainer?.textContent).toContain('Page 1'); // ✅ Safe to assert now
+    expect(menucolContainer?.textContent).toContain('Home:'); // ✅ Safe to assert now
   });
 });
 
