@@ -7,3 +7,9 @@ This project demos Angular frontend accessing [AWS Blocks](https://aws.amazon.co
 1. Uses Angular v22
 1. Register, SignIn, and SignOut features are considered
 
+## Usage
+
+```
+npm install
+npm run dev
+```
